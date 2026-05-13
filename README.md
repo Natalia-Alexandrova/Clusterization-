@@ -1,17 +1,17 @@
-# Идея проекта
+# Project idea
 
-Данный алгоритм построен на реальном запросе отдела тестирования программного обеспечения для физического моделирования. Есть данные о базе автоматического тестирования, которая содержит примерно 1700 тестов. Тесты должны отлавливать проблемы в коде после влитий разработчиков. База автотестов создавалась в течение последних 12 лет, и нет информации о качестве тестов (насколько они настроены на отлавливание ошибок).
+This algorithm is based on a real request from the software testing department for physical modeling. There is data on the automated test database, which contains approximately 1,700 tests. The tests are designed to catch problems in the code after developer input. The automated test database was created over the past 12 years, and there is no information on the quality of the tests (how well they are configured to catch errors).
 
-Каждую ночь проходит прогон всех тестов на обновлённой версии продукта. По результату тестирования какие-то тесты могут "упасть".Так как взаимосвязи между тестами сложны и непостижимы, то тестировщик проверяет причины падения только в единичных (выявленных в ежедневном отчёте об ошибках) тестах. Однако, практика показывает, что такого поверхностного анализа недостаточно. Возникает вопрос, почему похожие тесты (на один физический процесс, добавленные в один день, одним человеком и т.д.) ведут себя по-разному.
+Every night, all tests are run on the updated version of the product. The test results may reveal some tests that fail. Since the relationships between tests are complex and incomprehensible, the tester only checks for failures in individual tests (identified in the daily error report). However, experience shows that such a superficial analysis is insufficient. The question arises as to why similar tests (for the same physical process, added on the same day, by the same person, etc.) behave differently.
 
-Появилась идея создать умный анализатор - кластеризатор, который найдёт явные и неявные связи между проектами тестов, что недоступно человеческому разуму. Результатом работы анализатора будет группировка тестов со схожими параметрами. Тогда тестировщик после получения отчёта о падениях в одном тесте сможет проверить всю группу схожих с ним тестов, но которые не зафиксировали ошибок.
+An idea emerged to create a smart analyzer—a clusterer—that would find explicit and implicit connections between test projects, something inaccessible to the human mind. The analyzer's output would group tests with similar parameters. Then, after receiving a crash report for one test, a tester could check the entire group of similar tests that did not report any errors.
 
-Итого, на вход в анализатор-кластеризатор подаются данные из отчёта о тестировании о том, какие тесты упали после влития, а разработанный анализатор выдаёт список схожих тестов, которые якобы прошли.
+As a result, the analyzer-clustering unit receives data from the test report about which tests failed after the merge, and the developed analyzer produces a list of similar tests that supposedly passed.
 
-# Состав проекта
+# Project composition
 
-- Collecting_data: сбор данных из базы отчётов о тестировании в один датафрейм
-- EDA: анализ и описание текущей базы автотестов
-- Clustering_baseline: выбор и проба алгоритма для кластеризации
-- SP_parameters_tuning : настройка гиперпараметров
-- Conclusion: итоговый датасет и выводы
+- Collecting_data: collecting data from the test report database into a single data frame
+- EDA: analysis and description of the current automated test base
+- Clustering_baseline: selection and testing of an algorithm for clustering
+- SP_parameters_tuning : hyperparameter tuning
+- Conclusion: final dataset and conclusions

@@ -10,10 +10,10 @@ from sklearn.neighbors import NearestNeighbors
 
 def get_size(data: pd.DataFrame, labels: pd.Series, ax=None) -> None:
     """
-    Фунция для вывода графика размера кластеров
+    Function to plot cluster sizes
 
-    data - датасет эмбеддингов
-    labels - метки кластеров
+    data - embeddings dataset
+    labels - cluster labels
     """
     if ax is None:
         fig, ax = plt.subplots(1, 1)
@@ -22,17 +22,17 @@ def get_size(data: pd.DataFrame, labels: pd.Series, ax=None) -> None:
     cluster_size = data.assign(cluster=labels).groupby(
         'cluster').count().iloc[:, 0]
     ax = cluster_size.sort_values().plot.barh(figsize=(6, 4), color='C0')
-    plt.title('Размер кластеров')
+    plt.title('Cluster size')
 
     return
 
 
 def plot(data: pd.DataFrame, labels: pd.Series, ax=None):
     """
-    Фунция отрисовки кластеров в 3D
+    3D Cluster Rendering Function
 
-    data - датасет эмбеддингов
-    labels - метки кластеров
+    data - embeddings dataset
+    labels - cluster labels
     """
 
     if ax is None:
@@ -46,7 +46,7 @@ def plot(data: pd.DataFrame, labels: pd.Series, ax=None):
         zs=data[:, 2],
         c=labels)
 
-    ax.set_title(f'Визуализация ({len(np.unique(labels))}) кластеров', y=1.02)
+    ax.set_title(f'Visualization ({len(np.unique(labels))}) clusters', y=1.02)
     ax.set_xlabel('UMAP-1')
     ax.set_ylabel('UMAP-2')
     ax.set_zlabel('UMAP-3')
@@ -56,10 +56,10 @@ def plot(data: pd.DataFrame, labels: pd.Series, ax=None):
 
 def silhouette_plot(data: pd.DataFrame, labels: pd.Series, metrics='euclidean', ax=None) -> None:
     """
-    Функция вывода графика силуэтного скора
+    Silhouette Score Graph Output Function
 
-    data - датасет эмбеддингов
-    labels - метки кластеров
+    data - embeddings dataset
+    labels - cluster labels
     """
 
     if ax is None:
@@ -79,11 +79,12 @@ def silhouette_plot(data: pd.DataFrame, labels: pd.Series, metrics='euclidean', 
         ax.text(-0.03, (y_lower + y_upper) / 2, str(i + 1))
         y_lower += len(cluster_silhouette_vals)
 
-    # Получение средней оценки силуэтного скора и построение графика
+    # Obtaining an average silhouette score and plotting a graph
     avg_score = np.mean(silhouette_vals)
     ax.axvline(avg_score, linestyle='--', linewidth=1, color='red')
     ax.set_xlabel(f'Silhouette  = {round(avg_score, 3)}')
-    ax.set_ylabel('Метки кластеров')
-    ax.set_title(f'График силуэта для различных кластеров ({len(np.unique(labels))})', y=1.02)
+    ax.set_ylabel('Cluster labels')
+    ax.set_title(f'Silhouette plot for different clusters ({len(np.unique(labels))})', y=1.02)
 
     return
+
